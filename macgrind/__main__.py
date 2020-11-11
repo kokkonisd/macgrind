@@ -20,9 +20,21 @@ from .tools import info, warn, fail
 @click.command()
 @click.argument('project_dir', nargs=1)
 @click.argument('target', nargs=1)
-@click.option('-i', '--image', default='ubuntu:18.04', help='Docker image to run Valgrind in.')
-@click.option('-c', '--custom-command', default='make all', help='Command to run in order to build the project.')
-@click.option('-s', '--silent', is_flag=True, default=False, help='Silence all output.')
+@click.option('-i',
+              '--image',
+              default='ubuntu:18.04',
+              show_default=True,
+              help='Docker image to run Valgrind in.')
+@click.option('-c',
+              '--custom-command',
+              default='make all',
+              show_default=True,
+              help='Command to run in order to build the project.')
+@click.option('-s',
+              '--silent',
+              is_flag=True,
+              default=False,
+              help='Silence all output.')
 def main(project_dir, target, image, custom_command, silent):
     # Check if Docker is installed
     try:

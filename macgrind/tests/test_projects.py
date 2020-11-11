@@ -13,8 +13,7 @@ class TestProjects(unittest.TestCase):
                               '-m',
                               'macgrind',
                               './macgrind/tests/dummy_projects/cproj_ok_simple/',
-                              'main',
-                              '-s'])
+                              'main'])
 
         self.assertEqual(res.returncode, 0)
 
