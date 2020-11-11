@@ -20,7 +20,7 @@ jobs:
     # - name: Install Docker Desktop
       # run: brew cask install docker
     - name: Install Docker Machine
-      run: brew install docker-machine 
+      run: brew install docker docker-machine 
     - name: Start Docker Machine
       run: brew services start docker-machine
     # - name: Run Docker Desktop
