@@ -16,9 +16,9 @@ jobs:
     - name: Install homebrew
       run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     - name: Install Docker Desktop
-      run: brew cask install docker
+      run: brew install docker && brew cask install docker
     - name: Run Docker Desktop
-      run: open /Applications/Docker.app && sleep 60 && pip3 install -r requirements.txt && python3 -m unittest discover -s macgrind/tests
+      run: open /Applications/Docker.app && sleep 120 && docker run hello-world
     # - name: Wait for Docker Desktop to start
       # run: sleep 60
     # - name: Install Python dependencies

@@ -78,6 +78,13 @@ option:
 $ macgrind my_c_project/ main --image ubuntu:16.04
 ```
 
+Very often, projects depend on additional libraries. You can specify dependencies to be installed with `apt-get` using
+the `-d` (or `--dependencies`) option:
+
+```text
+$ macgrind my_curl_c_project/ main --dependencies libcurl4-openssl-dev
+```
+
 If you wish to run a custom command to build your project or just one target, other than `make all`, you can specify
 it using the `-c` (or `--custom-command`) option. Be aware, as with the executable, **the custom command must assume
 a relative address, as it will be run inside of your project directory**:
