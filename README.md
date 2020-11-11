@@ -64,3 +64,30 @@ Hello, World!
 Container exited without errors (exit code: 0)
 Done!
 ```
+
+By default, `macgrind` will build a Docker image based on `ubuntu:18.04`. It will then build your project by running
+`make all` in the project directory, then run the target using `valgrind --leak-check=full --error-exitcode=1
+<target>`.
+
+## more options
+
+You can specify the image on which the container will be built by running `macgrind` with the `-i` (or `--image`)
+option:
+
+```text
+$ macgrind my_c_project/ main --image ubuntu:16.04
+```
+
+If you wish to run a custom command to build your project or just one target, other than `make all`, you can specify
+it using the `-c` (or `--custom-command`) option. Be aware, as with the executable, **the custom command must assume
+a relative address, as it will be run inside of your project directory**:
+
+```text
+$ macgrind my_c_project/ main --custom-command "gcc src/main.c -o main"
+```
+
+To get the full option list, run:
+
+```text
+$ macgrind --help
+```
