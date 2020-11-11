@@ -13,24 +13,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    # - name: Install homebrew
-      # run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    - name: Install Python dependencies
+      run: pip3 install -r requirements.txt
     - name: Install Docker
       run: brew install docker docker-machine
     - name: Start Docker Machine
       run: brew services start docker-machine
     - name: Docker Machine default
       run: docker-machine create --driver virtualbox default
-    - name: Start DM
-      run: eval "$(docker-machine env default)" && docker run hello-world
-    # - name: Run Docker Desktop
-      # run: open /Applications/Docker.app
-    # - name: Run test
-      # run: docker run hello-world
-      # run: open /Applications/Docker.app && sleep 300 && docker run hello-world
-    # - name: Wait for Docker Desktop to start
-      # run: sleep 60
-    # - name: Install Python dependencies
-    #   run: pip3 install -r requirements.txt
-    # - name: Run tests
-    #   run: python3 -m unittest discover -s macgrind/tests
+    - name: Run tests
+      run: eval "$(docker-machine env default)" && python3 -m unittest discover -s macgrind/tests
