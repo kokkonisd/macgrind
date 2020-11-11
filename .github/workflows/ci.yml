@@ -19,7 +19,7 @@ jobs:
       # run: brew install docker && brew cask install docker
     - name: Run Docker Desktop
       # run: open /Applications/Docker.app && sleep 300 && docker run hello-world
-      run: docker run hello-world
+      run: brew install docker && docker run hello-world
     # - name: Wait for Docker Desktop to start
       # run: sleep 60
     # - name: Install Python dependencies
