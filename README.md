@@ -5,8 +5,8 @@ Containerized Valgrind on OSX for C and C++ projects.
 
 ## why
 
-As of the time of writing this, [Valgrind]() is not natively supported on OSX. This tool allows you to run it in a
-[Docker]() container without any code changes or extra garbage.
+As of the time of writing this, [Valgrind](https://www.valgrind.org/) is not natively supported on OSX. This tool
+allows you to run it in a [Docker](https://www.docker.com/) container without any code changes or extra garbage.
 
 
 ## how to install
@@ -17,7 +17,7 @@ You can install `macgrind` via `pip`:
 $ pip3 install macgrind
 ```
 
-You also need to install [Docker Desktop](), and have it running.
+You also need to install [Docker Desktop](https://www.docker.com/products/docker-desktop), and have it running.
 
 
 ## how to use
