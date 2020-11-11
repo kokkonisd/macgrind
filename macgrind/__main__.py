@@ -48,7 +48,7 @@ def main(project_dir, target, image, custom_command, silent):
         if silent:
             exit(1)
         else:
-            fail('Could not build container. Check for any compilation errors in your program.')
+            fail('Could not build image. Check for any compilation errors in your program.')
 
     # Remove Dockerfile
     subprocess.run(["rm", "-rf", "Dockerfile"])
