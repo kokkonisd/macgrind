@@ -20,7 +20,7 @@ jobs:
     - name: Install Docker Desktop
       run: brew cask install docker
     - name: Install Docker Machine
-      run: brew cask install docker-machine && eval "$(docker-machine env default)"
+      run: brew install docker-machine && eval "$(docker-machine env default)"
     - name: Run Docker Desktop
       run: ls -l /Applications/ | grep Docker
     - name: Run
