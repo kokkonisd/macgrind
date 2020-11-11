@@ -19,12 +19,14 @@ jobs:
       # run: brew install docker
     # - name: Install Docker Desktop
       # run: brew cask install docker
-    - name: Install Docker Machine
-      run: brew install docker docker-machine 
+    - name: Install Docker
+      run: brew install docker docker-machine virtualbox
     - name: Start Docker Machine
       run: brew services start docker-machine
     - name: Docker Machine default
-      run: docker-machine env default
+      run: docker-machine create --driver virtualbox default
+    - name: Start DM
+      run: eval "$(docker-machine env default)"
     # - name: Run Docker Desktop
       # run: open /Applications/Docker.app
     - name: Run test
