@@ -18,9 +18,11 @@ jobs:
     - name: Install Docker Desktop
       run: brew cask install docker
     - name: Run Docker Desktop
-      run: open /Applications/Docker.app
+      run: open -a Docker
+    - name: Install Docker
+      run: brew install docker
     - name: Wait for Docker Desktop to start
-      run: sleep 30
+      run: sleep 60
     - name: Check that docker exists
       run: which docker
     - name: Install Python dependencies
