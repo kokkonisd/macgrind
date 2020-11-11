@@ -18,12 +18,10 @@ jobs:
     - name: Install Docker Desktop
       run: brew cask install docker
     - name: Run Docker Desktop
-      run: open /Applications/Docker.app
-    - name: Install Docker
-      run: brew install docker
-    - name: Wait for Docker Desktop to start
-      run: sleep 60
-    - name: Install Python dependencies
-      run: pip3 install -r requirements.txt
-    - name: Run tests
-      run: python3 -m unittest discover -s macgrind/tests
+      run: open /Applications/Docker.app && sleep 60 && pip3 install -r requirements.txt && python3 -m unittest discover -s macgrind/tests
+    # - name: Wait for Docker Desktop to start
+      # run: sleep 60
+    # - name: Install Python dependencies
+    #   run: pip3 install -r requirements.txt
+    # - name: Run tests
+    #   run: python3 -m unittest discover -s macgrind/tests
