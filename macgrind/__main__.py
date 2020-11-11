@@ -62,7 +62,7 @@ def main(project_dir, target, image, custom_command, silent):
     if not silent:
         info('Building Docker image...')
     # try:
-    client.images.build(path=project_dir, fileobj=, tag='macgrind-ubuntu-18_04')
+    client.images.build(path='/Users/kokkonisd/code/c/projects/', dockerfile='Dockerfile', tag='macgrind-ubuntu-18_04')
     # except docker.errors.BuildError:
     #     # Remove Dockerfile if failed
     #     if silent:

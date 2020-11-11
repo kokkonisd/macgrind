@@ -23,8 +23,6 @@ jobs:
       run: brew install docker
     - name: Wait for Docker Desktop to start
       run: sleep 60
-    - name: Check that docker exists
-      run: which docker
     - name: Install Python dependencies
       run: pip3 install -r requirements.txt
     - name: Run tests
