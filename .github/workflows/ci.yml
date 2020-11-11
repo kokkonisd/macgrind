@@ -19,12 +19,14 @@ jobs:
       run: brew install docker
     - name: Install Docker Desktop
       run: brew cask install docker
+    - name: Install Docker Machine
+      run: brew cask install docker-machine && eval "$(docker-machine env default)"
     - name: Run Docker Desktop
       run: ls -l /Applications/ | grep Docker
     - name: Run
       run: open /Applications/Docker.app
     - name: Tst
-      run: docker run hello-world
+      run: env | grep DOCKER
       # run: open /Applications/Docker.app && sleep 300 && docker run hello-world
     # - name: Wait for Docker Desktop to start
       # run: sleep 60
