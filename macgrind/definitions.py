@@ -22,7 +22,8 @@ DEFAULT_DOCKERFILE = '''\
 FROM ubuntu:18.04
 RUN  apt-get update -y
 RUN  apt-get install -y build-essential valgrind
-ADD  . /
-RUN  make -C /{} all 
-CMD  ["valgrind", "--leak-check=full", "--error-exitcode=1", "/{}"]
+ADD  {} /valgrind_project_tmp/
+RUN  make -C /valgrind_project_tmp/ all 
+CMD  ["valgrind", "--leak-check=full", "--error-exitcode=1", "/valgrind_project_tmp/{}"]
+# CMD  ["ls", "/"]
 '''
