@@ -36,6 +36,10 @@ from .tools import info, warn, fail
               default=False,
               help='Silence all output.')
 def main(project_dir, target, image, custom_command, silent):
+    # Check that project directory exists
+    if not (os.path.exists(project_dir) and os.path.isdir(project_dir)):
+        fail(f'Project directory `{project_dir}` either does not exist or is not a directory.')
+
     # Check if Docker is installed
     try:
         client = docker.from_env()
