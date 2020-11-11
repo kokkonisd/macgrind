@@ -25,6 +25,8 @@ jobs:
       run: brew services start docker-machine
     - name: Run Docker Desktop
       run: open /Applications/Docker.app
+    - name: Run test
+      run: docker hello-world
       # run: open /Applications/Docker.app && sleep 300 && docker run hello-world
     # - name: Wait for Docker Desktop to start
       # run: sleep 60
