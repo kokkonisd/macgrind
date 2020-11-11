@@ -13,12 +13,13 @@ import subprocess
 from .definitions import COLORS
 
 
-def cleanup():
+def cleanup(files):
     """
     Cleans up.
     """
-    # Remove Dockerfile
-    subprocess.run(["rm", "-rf", "Dockerfile"])
+    # Remove garbage
+    for file in files:
+        subprocess.run(["rm", "-rf", file])
 
 
 def print_color_message(message, color, end='\n'):
@@ -62,15 +63,17 @@ def warn(message, end='\n'):
     print_color_message(message=f'/!\\ {message}', color='orange', end=end)
 
 
-def fail(message, end='\n'):
+def fail(message, cleanup_files, end='\n'):
     """
     Prints a fail message, cleans up and exits.
     
     :param      message:  The message to print.
     :type       message:  string
+    :param      message:  A list of files to clean up.
+    :type       message:  list
     :param      end:      The end character/string ('\n' by default)
     :type       end:      string
     """
     print_color_message(message=message, color='red', end=end)
-    cleanup()
+    cleanup(cleanup_files)
     exit(1)
