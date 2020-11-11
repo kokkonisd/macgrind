@@ -15,15 +15,15 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install homebrew
       run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    # - name: Install Docker CLI
-      # run: brew install docker
-    # - name: Install Docker Desktop
-      # run: brew cask install docker
+    - name: Install Docker CLI
+      run: brew install docker
+    - name: Install Docker Desktop
+      run: brew cask install docker
     - name: Install Docker Machine
-      run: brew install docker-machine && eval "$(docker-machine ls)"
+      run: brew install docker-machine 
+    - name: Start Docker Machine
+      run: brew services start docker-machine
     - name: Run Docker Desktop
-      run: ls -l /Applications/ | grep Docker
-    - name: Run
       run: open /Applications/Docker.app
       # run: open /Applications/Docker.app && sleep 300 && docker run hello-world
     # - name: Wait for Docker Desktop to start
