@@ -18,7 +18,7 @@ jobs:
     - name: Install Docker Desktop
       run: brew cask install docker
     - name: Run Docker Desktop
-      run: open -a Docker
+      run: open /Applications/Docker.app
     - name: Install Docker
       run: brew install docker
     - name: Wait for Docker Desktop to start

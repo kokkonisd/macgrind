@@ -33,6 +33,7 @@ from .tools import cleanup, info, warn, fail
               default=False,
               help='Silence all output.')
 def main(project_dir, target, image, custom_command, silent):
+    print(f"valgrind /valgrind_project_tmp/{target}")
     # Check that project directory exists
     if not (os.path.exists(project_dir) and os.path.isdir(project_dir)):
         fail(f'Project directory `{project_dir}` either does not exist or is not a directory.')
@@ -60,14 +61,14 @@ def main(project_dir, target, image, custom_command, silent):
     # Build image
     if not silent:
         info('Building Docker image...')
-    try:
-        client.images.build(path='.', tag='macgrind-ubuntu-18_04')
-    except docker.errors.BuildError:
-        # Remove Dockerfile if failed
-        if silent:
-            exit(1)
-        else:
-            fail(f'Could not build image. Either image `{image}` does not exist or your project has build errors.')
+    # try:
+    client.images.build(path=project_dir, fileobj=, tag='macgrind-ubuntu-18_04')
+    # except docker.errors.BuildError:
+    #     # Remove Dockerfile if failed
+    #     if silent:
+    #         exit(1)
+    #     else:
+    #         fail(f'Could not build image. Either image `{image}` does not exist or your project has build errors.')
 
     # Run container
     if not silent:
