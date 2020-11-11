@@ -11,10 +11,9 @@
 import click
 import docker
 import os
-import subprocess
 
 from .definitions import VERSION, DEFAULT_DOCKERFILE, CUSTOM_COMMAND_DOCKERFILE
-from .tools import info, warn, fail
+from .tools import cleanup, info, warn, fail
 
 
 @click.command()
@@ -65,14 +64,10 @@ def main(project_dir, target, image, custom_command, silent):
         client.images.build(path='.', tag='macgrind-ubuntu-18_04')
     except docker.errors.BuildError:
         # Remove Dockerfile if failed
-        subprocess.run(["rm", "-rf", "Dockerfile"])
         if silent:
             exit(1)
         else:
             fail(f'Could not build image. Either image `{image}` does not exist or your project has build errors.')
-
-    # Remove Dockerfile
-    subprocess.run(["rm", "-rf", "Dockerfile"])
 
     # Run container
     if not silent:
@@ -98,6 +93,9 @@ def main(project_dir, target, image, custom_command, silent):
             exit(1)
         else:
             fail(f'Container exited with errors (exit code: {container_exit_code})')
+
+    # Clean up before exiting
+    cleanup()
 
     if not silent:
         info("Done!")

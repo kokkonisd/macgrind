@@ -8,10 +8,30 @@
 ##
 
 
+import subprocess
+
 from .definitions import COLORS
 
 
+def cleanup():
+    """
+    Cleans up.
+    """
+    # Remove Dockerfile
+    subprocess.run(["rm", "-rf", "Dockerfile"])
+
+
 def print_color_message(message, color, end='\n'):
+    """
+    Prints a colored message.
+    
+    :param      message:  The message to print.
+    :type       message:  string
+    :param      color:    The color to print in.
+    :type       color:    string (COLORS dictionary in definitions.py)
+    :param      end:      The end character/string ('\n' by default)
+    :type       end:      string
+    """
     if color not in COLORS.keys():
         return
 
@@ -19,16 +39,38 @@ def print_color_message(message, color, end='\n'):
 
 
 def info(message, end='\n'):
-    """Prints a colored info message."""
+    """
+    Prints an info message.
+    
+    :param      message:  The message to print.
+    :type       message:  string
+    :param      end:      The end character/string ('\n' by default)
+    :type       end:      string
+    """
     print_color_message(message=message, color='yellow', end=end)
 
 
 def warn(message, end='\n'):
-    """Prints a colored warning message."""
+    """
+    Prints a warning message.
+    
+    :param      message:  The message to print.
+    :type       message:  string
+    :param      end:      The end character/string ('\n' by default)
+    :type       end:      string
+    """
     print_color_message(message=f'/!\\ {message}', color='orange', end=end)
 
 
 def fail(message, end='\n'):
-    """Prints a colored error message and exits."""
+    """
+    Prints a fail message, cleans up and exits.
+    
+    :param      message:  The message to print.
+    :type       message:  string
+    :param      end:      The end character/string ('\n' by default)
+    :type       end:      string
+    """
     print_color_message(message=message, color='red', end=end)
+    cleanup()
     exit(1)
