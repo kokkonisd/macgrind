@@ -38,13 +38,13 @@ def main(project_dir, target, image, custom_command, silent):
         fail(f'Project directory `{project_dir}` either does not exist or is not a directory.')
 
     # Check if Docker is installed
-    # try:
-    client = docker.from_env()
-    # except docker.errors.DockerException:
-        # if silent:
-            # exit(1)
-        # else:
-            # fail('Docker failed to launch. You have either not yet installed Docker or it is currently not running.')
+    try:
+        client = docker.from_env()
+    except docker.errors.DockerException:
+        if silent:
+            exit(1)
+        else:
+            fail('Docker failed to launch. You have either not yet installed Docker or it is currently not running.')
 
     # Create Dockerfile
     if not silent:
