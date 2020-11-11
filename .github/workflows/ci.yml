@@ -17,5 +17,7 @@ jobs:
       run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     - name: Install Docker
       run: brew cask install docker
+    - name: Install Python dependencies
+      run: pip3 install -r requirements.txt
     - name: Run tests
       run: python3 -m unittest discover -s macgrind/tests
