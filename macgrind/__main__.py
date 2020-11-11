@@ -20,8 +20,10 @@ from .tools import info, warn, fail
 @click.command()
 @click.argument('project_dir', nargs=1)
 @click.argument('target', nargs=1)
+@click.option('-i', '--image', default='ubuntu:18.04', help='Docker image to run Valgrind in.')
+@click.option('-c', '--custom-command', default='make all', help='Command to run in order to build the project.')
 @click.option('-s', '--silent', is_flag=True, default=False, help='Silence all output.')
-def main(project_dir, target, silent):
+def main(project_dir, target, image, custom_command, silent):
     # Check if Docker is installed
     try:
         client = docker.from_env()
@@ -35,7 +37,7 @@ def main(project_dir, target, silent):
     if not silent:
         info('Creating temporary Dockerfile...')
     with open('Dockerfile', 'w') as dockerfile:
-        dockerfile.write(DEFAULT_DOCKERFILE.format(project_dir, target))
+        dockerfile.write(DEFAULT_DOCKERFILE.format(image, project_dir, target))
 
     # Build image
     if not silent:

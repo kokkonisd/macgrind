@@ -19,11 +19,20 @@ COLORS = {
 
 
 DEFAULT_DOCKERFILE = '''\
-FROM ubuntu:18.04
+FROM {}
 RUN  apt-get update -y
 RUN  apt-get install -y build-essential valgrind
 ADD  {} /valgrind_project_tmp/
 RUN  make -C /valgrind_project_tmp/ all 
 CMD  ["valgrind", "--leak-check=full", "--error-exitcode=1", "/valgrind_project_tmp/{}"]
-# CMD  ["ls", "/"]
+'''
+
+
+CUSTOM_COMMAND_DOCKERFILE = '''\
+FROM {}
+RUN  apt-get update -y
+RUN  apt-get install -y build-essential valgrind
+ADD  {} /valgrind_project_tmp/
+RUN  cd /valgrind_project_tmp/ && {} 
+CMD  ["valgrind", "--leak-check=full", "--error-exitcode=1", "/valgrind_project_tmp/{}"]
 '''
