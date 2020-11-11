@@ -26,7 +26,7 @@ jobs:
     - name: Run Docker Desktop
       run: open /Applications/Docker.app
     - name: Run test
-      run: docker hello-world
+      run: docker run hello-world
       # run: open /Applications/Docker.app && sleep 300 && docker run hello-world
     # - name: Wait for Docker Desktop to start
       # run: sleep 60
