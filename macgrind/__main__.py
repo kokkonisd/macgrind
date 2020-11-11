@@ -13,7 +13,7 @@ import docker
 import os
 import subprocess
 
-from .definitions import VERSION, DEFAULT_DOCKERFILE
+from .definitions import VERSION, DEFAULT_DOCKERFILE, CUSTOM_COMMAND_DOCKERFILE
 from .tools import info, warn, fail
 
 
@@ -27,8 +27,6 @@ from .tools import info, warn, fail
               help='Docker image to run Valgrind in.')
 @click.option('-c',
               '--custom-command',
-              default='make all',
-              show_default=True,
               help='Command to run in order to build the project.')
 @click.option('-s',
               '--silent',
@@ -53,7 +51,12 @@ def main(project_dir, target, image, custom_command, silent):
     if not silent:
         info('Creating temporary Dockerfile...')
     with open('Dockerfile', 'w') as dockerfile:
-        dockerfile.write(DEFAULT_DOCKERFILE.format(image, project_dir, target))
+        if custom_command:
+            # Create a Dockerfile with a custom build command
+            dockerfile.write(CUSTOM_COMMAND_DOCKERFILE.format(image, project_dir, custom_command, target))
+        else:
+            # Create a Dockerfile with a `make all` build command
+            dockerfile.write(DEFAULT_DOCKERFILE.format(image, project_dir, target))
 
     # Build image
     if not silent:
@@ -61,6 +64,8 @@ def main(project_dir, target, image, custom_command, silent):
     try:
         client.images.build(path='.', tag='macgrind-ubuntu-18_04')
     except docker.errors.BuildError:
+        # Remove Dockerfile if failed
+        subprocess.run(["rm", "-rf", "Dockerfile"])
         if silent:
             exit(1)
         else:
