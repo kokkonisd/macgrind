@@ -39,7 +39,8 @@ from .tools import cleanup, info, warn, fail
               help='Command to run before building the project.')
 @click.option('--run-after',
               default=':', # : is the Bash no-op, if nothing is provided
-              help='Command to run after building the project & running Valgrind.')
+              help='Command to run after building the project & running Valgrind (Note: will only run if Valgrind '\
+                   'returns 0).')
 @click.option('-s',
               '--silent',
               is_flag=True,
