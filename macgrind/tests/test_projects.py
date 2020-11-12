@@ -41,3 +41,27 @@ class TestProjects(unittest.TestCase):
                               '-s'])
 
         self.assertEqual(res.returncode, 1)
+
+
+    def test_cpp_project_ok_simple(self):
+        # Run macgrind
+        res = subprocess.run([sys.executable,
+                              '-m',
+                              'macgrind',
+                              './macgrind/tests/dummy_projects/cppproj_ok_simple/',
+                              'main',
+                              '-s'])
+
+        self.assertEqual(res.returncode, 0)
+
+
+    def test_cpp_project_ko_simple(self):
+        # Run macgrind
+        res = subprocess.run([sys.executable,
+                              '-m',
+                              'macgrind',
+                              './macgrind/tests/dummy_projects/cppproj_ko_simple/',
+                              'main',
+                              '-s'])
+
+        self.assertEqual(res.returncode, 1)
