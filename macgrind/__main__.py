@@ -41,6 +41,8 @@ from .tools import cleanup, info, warn, fail
               is_flag=True,
               default=False,
               help='Silence all output.')
+@click.version_option(version = VERSION,
+                      prog_name = "macgrind")
 def main(project_dir, target, image, dependencies, custom_command, run, silent):
     # Setup list of files to be cleaned up
     cleanup_files = [os.path.join(project_dir, 'Dockerfile')]
