@@ -1,6 +1,8 @@
 # macgrind
 
 ![CI](https://github.com/kokkonisd/macgrind/workflows/CI/badge.svg)
+![Stable version](https://img.shields.io/pypi/v/macgrind?label=stable%20version)
+![Latest version](https://img.shields.io/github/v/tag/kokkonisd/macgrind?color=yellow&label=latest%20version)
 
 Containerized Valgrind on OSX for C and C++ projects.
 
