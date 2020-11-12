@@ -13,7 +13,7 @@ import docker
 import os
 from io import BytesIO
 
-from .definitions import VERSION, DEFAULT_DOCKERFILE, CUSTOM_COMMAND_DOCKERFILE
+from .definitions import VERSION, DEFAULT_DOCKERFILE
 from .tools import cleanup, info, warn, fail
 
 
@@ -31,11 +31,15 @@ from .tools import cleanup, info, warn, fail
               help='Additional dependencies (to be installed with apt-get).')
 @click.option('-c',
               '--custom-command',
+              default='make all',
+              show_default=True,
               help='Command to run in order to build the project.')
-@click.option('-r',
-              '--run',
+@click.option('--run-before',
               default=':', # : is the Bash no-op, if nothing is provided
-              help='Command to run before building or running Valgrind.')
+              help='Command to run before building the project.')
+@click.option('--run-after',
+              default=':', # : is the Bash no-op, if nothing is provided
+              help='Command to run after building the project & running Valgrind.')
 @click.option('-s',
               '--silent',
               is_flag=True,
@@ -43,7 +47,7 @@ from .tools import cleanup, info, warn, fail
               help='Silence all output.')
 @click.version_option(version = VERSION,
                       prog_name = "macgrind")
-def main(project_dir, target, image, dependencies, custom_command, run, silent):
+def main(project_dir, target, image, dependencies, custom_command, run_before, run_after, silent):
     # Setup list of files to be cleaned up
     cleanup_files = [os.path.join(project_dir, 'Dockerfile')]
 
@@ -69,12 +73,13 @@ def main(project_dir, target, image, dependencies, custom_command, run, silent):
     # command below is relative to the build path, and the build path must be equal to the path to the project's
     # diectory.
     with open(os.path.join(project_dir, 'Dockerfile'), 'w') as dockerfile:
-        if custom_command:
-            # Create a Dockerfile with a custom build command
-            dockerfile.write(CUSTOM_COMMAND_DOCKERFILE.format(image, dependencies, run, custom_command, target))
-        else:
-            # Create a Dockerfile with a `make all` build command
-            dockerfile.write(DEFAULT_DOCKERFILE.format(image, dependencies, run, target))
+            # Create a Dockerfile
+            dockerfile.write(DEFAULT_DOCKERFILE.format(image,
+                                                       dependencies,
+                                                       run_before,
+                                                       custom_command,
+                                                       target,
+                                                       run_after))
 
     # Build image
     if not silent:

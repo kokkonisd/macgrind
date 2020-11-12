@@ -73,7 +73,7 @@ class TestProjects(unittest.TestCase):
                               '-m',
                               'macgrind',
                               './macgrind/tests/dummy_projects/cproj_ok_simple/',
-                              'main',
+                              './main',
                               '-s',
                               '-c',
                               'gcc -c src/main.c -o main.o && gcc main.o -o main'])
@@ -81,16 +81,18 @@ class TestProjects(unittest.TestCase):
         self.assertEqual(res.returncode, 0)
 
 
-    def test_c_project_custom_run_command(self):
+    def test_c_project_custom_run_commands(self):
         res = subprocess.run([sys.executable,
                               '-m',
                               'macgrind',
                               './macgrind/tests/dummy_projects/cproj_ok_simple/',
                               'build/main',
                               '-s',
-                              '-r',
+                              '--run-before',
                               'mkdir -p build/',
                               '-c',
-                              'gcc -c src/main.c -o build/main.o && gcc build/main.o -o build/main'])
+                              'gcc -c src/main.c -o build/main.o && gcc build/main.o -o build/main',
+                              '--run-after',
+                              'ls; rm -rf build/; ls'])
 
         self.assertEqual(res.returncode, 0)
