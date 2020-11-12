@@ -26,4 +26,5 @@ setuptools.setup(
     entry_points = {'console_scripts': [
         'macgrind = macgrind.__main__:main',
     ], },
+    python_requires='>=3.6',
 )
