@@ -84,7 +84,7 @@ def main(project_dir, target, image, dependencies, custom_command, run, silent):
         client.images.build(path=project_dir,
                             dockerfile='Dockerfile',
                             tag=f"macgrind-{image.replace(':', '_').replace('.', '-')}")
-    except docker.errors.BuildError:
+    except docker.errors.BuildError as err:
         # Remove Dockerfile if failed
         if silent:
             fail('', cleanup_files=cleanup_files, end='')
@@ -92,7 +92,9 @@ def main(project_dir, target, image, dependencies, custom_command, run, silent):
             fail(f'Could not build image. Possible reasons:\n'\
                  f'- Image `{image}` does not exist.\n'\
                  f'- You need to specify additional dependencies (use the `--dependencies` option).\n'\
-                 f'- Your project has build errors.',
+                 f'- Your project has build errors.\n\n'\
+                 f'Here is the error message returned by Docker:\n'\
+                 f'{err}',
                  cleanup_files=cleanup_files)
 
     # Run container
