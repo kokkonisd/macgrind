@@ -1,5 +1,7 @@
 # macgrind
 
+![CI](https://github.com/kokkonisd/macgrind/workflows/CI/badge.svg)
+
 Containerized Valgrind on OSX for C and C++ projects.
 
 
