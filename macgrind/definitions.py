@@ -8,7 +8,7 @@
 ##
 
 
-VERSION = "0.0.1"
+VERSION = "1.0.0"
 
 
 COLORS = {
@@ -23,6 +23,7 @@ FROM {}
 RUN  apt-get update -y
 RUN  apt-get install -y build-essential valgrind {}
 ADD  . /valgrind_project_tmp/
+RUN  cd /valgrind_project_tmp/ && {}
 RUN  make -C /valgrind_project_tmp/ all 
 CMD  ["valgrind", "--leak-check=full", "--error-exitcode=1", "/valgrind_project_tmp/{}"]
 '''
@@ -33,6 +34,7 @@ FROM {}
 RUN  apt-get update -y
 RUN  apt-get install -y build-essential valgrind {}
 ADD  . /valgrind_project_tmp/
+RUN  cd /valgrind_project_tmp/ && {}
 RUN  cd /valgrind_project_tmp/ && {} 
 CMD  ["valgrind", "--leak-check=full", "--error-exitcode=1", "/valgrind_project_tmp/{}"]
 '''

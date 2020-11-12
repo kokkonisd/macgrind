@@ -32,12 +32,16 @@ from .tools import cleanup, info, warn, fail
 @click.option('-c',
               '--custom-command',
               help='Command to run in order to build the project.')
+@click.option('-r',
+              '--run',
+              default=':', # : is the Bash no-op, if nothing is provided
+              help='Command to run before building or running Valgrind.')
 @click.option('-s',
               '--silent',
               is_flag=True,
               default=False,
               help='Silence all output.')
-def main(project_dir, target, image, dependencies, custom_command, silent):
+def main(project_dir, target, image, dependencies, custom_command, run, silent):
     # Setup list of files to be cleaned up
     cleanup_files = [os.path.join(project_dir, 'Dockerfile')]
 
@@ -65,10 +69,10 @@ def main(project_dir, target, image, dependencies, custom_command, silent):
     with open(os.path.join(project_dir, 'Dockerfile'), 'w') as dockerfile:
         if custom_command:
             # Create a Dockerfile with a custom build command
-            dockerfile.write(CUSTOM_COMMAND_DOCKERFILE.format(image, dependencies, custom_command, target))
+            dockerfile.write(CUSTOM_COMMAND_DOCKERFILE.format(image, dependencies, run, custom_command, target))
         else:
             # Create a Dockerfile with a `make all` build command
-            dockerfile.write(DEFAULT_DOCKERFILE.format(image, dependencies, target))
+            dockerfile.write(DEFAULT_DOCKERFILE.format(image, dependencies, run, target))
 
     # Build image
     if not silent:
