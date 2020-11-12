@@ -65,3 +65,15 @@ class TestProjects(unittest.TestCase):
                               '-s'])
 
         self.assertEqual(res.returncode, 1)
+
+
+    def test_cpp_project_ko_syntax_error(self):
+        # Run macgrind
+        res = subprocess.run([sys.executable,
+                              '-m',
+                              'macgrind',
+                              './macgrind/tests/dummy_projects/cppproj_ko_syntax_error/',
+                              'main',
+                              '-s'])
+
+        self.assertEqual(res.returncode, 1)
