@@ -39,7 +39,7 @@ my_c_project/
 ```
 
 I need to supply the full path to `my_c_project/`, but only the relative path to the target executable: `main` (and not
-`my_c_project/`). The assumption here is that the `all` target in the `Makefile` builds `my_c_project/main`.
+`my_c_project/main`). The assumption here is that the `all` target in the `Makefile` builds `my_c_project/main`.
 
 So, we could run `macgrind` like this:
 
