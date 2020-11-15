@@ -103,3 +103,8 @@ To get the full option list, run:
 ```text
 $ macgrind --help
 ```
+
+
+## how it works
+
+I've written a small [blogpost](https://kokkonisd.github.io/2020/11/15/macgrind/) about it.
