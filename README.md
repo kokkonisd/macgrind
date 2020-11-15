@@ -4,13 +4,14 @@
 ![Stable version](https://img.shields.io/pypi/v/macgrind?label=stable%20version)
 ![Latest version](https://img.shields.io/github/v/tag/kokkonisd/macgrind?color=yellow&label=latest%20version)
 
-Containerized Valgrind on OSX for C and C++ projects.
+Containerized Valgrind on macOS for C and C++ projects.
 
 
 ## why
 
-As of the time of writing this, [Valgrind](https://www.valgrind.org/) is not natively supported on OSX. This tool
-allows you to run it in a [Docker](https://www.docker.com/) container without any code changes or extra garbage.
+As of the time of writing this, [Valgrind](https://www.valgrind.org/) is not natively supported on several recent
+versions of macOS. This tool allows you to run it in a [Docker](https://www.docker.com/) container without any code
+changes or extra garbage.
 
 
 ## how to install
