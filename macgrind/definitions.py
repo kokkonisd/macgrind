@@ -8,7 +8,7 @@
 ##
 
 
-VERSION = "1.0.3"
+VERSION = "1.0.4"
 
 
 COLORS = {
@@ -16,6 +16,10 @@ COLORS = {
     'orange': '\033[91m{}\033[0m',
     'red'   : '\033[31m{}\033[0m'
 }
+
+
+# Different name, such as to not accidentally erase any user Dockerfiles
+DOCKERFILE_NAME = 'temp_Macgrind_Dockerfile'
 
 
 DEFAULT_DOCKERFILE = '''\

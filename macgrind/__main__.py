@@ -13,7 +13,7 @@ import docker
 import os
 from io import BytesIO
 
-from .definitions import VERSION, DEFAULT_DOCKERFILE
+from .definitions import VERSION, DEFAULT_DOCKERFILE, DOCKERFILE_NAME
 from .tools import cleanup, info, warn, fail
 
 
@@ -50,7 +50,7 @@ from .tools import cleanup, info, warn, fail
                       prog_name = "macgrind")
 def main(project_dir, target, image, dependencies, custom_command, run_before, run_after, silent):
     # Setup list of files to be cleaned up
-    cleanup_files = [os.path.join(project_dir, 'Dockerfile')]
+    cleanup_files = [os.path.join(project_dir, DOCKERFILE_NAME)]
 
     # Check that project directory exists
     if not (os.path.exists(project_dir) and os.path.isdir(project_dir)):
@@ -73,7 +73,7 @@ def main(project_dir, target, image, dependencies, custom_command, run_before, r
     # The Dockerfile must be created in the project's directory, because the `dockerfile` parameter on the build
     # command below is relative to the build path, and the build path must be equal to the path to the project's
     # diectory.
-    with open(os.path.join(project_dir, 'Dockerfile'), 'w') as dockerfile:
+    with open(os.path.join(project_dir, DOCKERFILE_NAME), 'w') as dockerfile:
             # Create a Dockerfile
             dockerfile.write(DEFAULT_DOCKERFILE.format(image,
                                                        dependencies,
@@ -88,7 +88,7 @@ def main(project_dir, target, image, dependencies, custom_command, run_before, r
     try:
         # The path must be the project path, or else the files cannot be copied
         client.images.build(path=project_dir,
-                            dockerfile='Dockerfile',
+                            dockerfile=DOCKERFILE_NAME,
                             tag=f"macgrind-{image.replace(':', '_').replace('.', '-')}")
     except docker.errors.BuildError as err:
         # Remove Dockerfile if failed
